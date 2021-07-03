@@ -31,10 +31,10 @@ defmodule Shape do
   def shape_l() do
     %Shape{
       points: [
-        Point.new(-1, 2),
-        Point.new(0, 2),
-        Point.new(1, 2),
-        Point.new(1, 3)
+        Point.new(-1, 0),
+        Point.new(0, 0),
+        Point.new(1, 0),
+        Point.new(1, -1)
       ]
     }
   end
@@ -46,10 +46,10 @@ defmodule Shape do
         |> Enum.map(fn point -> {{point.x, point.y}, "■"} end)
         |> Map.new()
 
-      for y <- 4..-4, x <- -4..4 do
+      for y <- 2..-2, x <- -2..2 do
         Map.get(map, {x, y}, "□")
       end
-      |> Enum.chunk_every(9)
+      |> Enum.chunk_every(5)
       |> Enum.map(&Enum.join/1)
       |> Enum.join("\n")
     end
@@ -59,5 +59,11 @@ defmodule Shape do
     shape
     |> to_string()
     |> IO.puts()
+  end
+
+  defimpl Inspect do
+    def inspect(%Shape{} = shape, _opts) do
+      to_string(shape)
+    end
   end
 end
