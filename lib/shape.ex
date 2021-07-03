@@ -23,6 +23,11 @@ defmodule Shape do
     %Shape{points: points}
   end
 
+  def rotate_left(%Shape{} = shape) do
+    points = Enum.map(shape.points, &Point.rotate_left/1)
+    %Shape{points: points}
+  end
+
   def shape_l() do
     %Shape{
       points: [

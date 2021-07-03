@@ -15,16 +15,26 @@ defmodule Point do
     do: %Point{x: x, y: y}
 
   @impl Behavior
-  # @spec transpose(Point.t()) :: Point.t()
+
+  @spec transpose(Point.t()) :: Point.t()
   def transpose(%Point{} = point), do: Point.new(point.y, point.x)
 
+  @spec reflect_x(Point.t()) :: Point.t()
+  def reflect_x(%Point{} = point), do: Point.new(point.x, -point.y)
+
   @spec reflect_y(Point.t()) :: Point.t()
-  def reflect_y(%Point{} = point), do: Point.new(point.x, -point.y)
+  def reflect_y(%Point{} = point), do: Point.new(-point.x, point.y)
 
   @spec rotate_right(Point.t()) :: Point.t()
   def rotate_right(%Point{} = point) do
     point
     |> reflect_y
+    |> transpose
+  end
+
+  def rotate_left(%Point{} = point) do
+    point
+    |> reflect_x
     |> transpose
   end
 end
