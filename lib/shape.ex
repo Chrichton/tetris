@@ -34,23 +34,25 @@ defmodule Shape do
     }
   end
 
-  def to_string_s(%Shape{} = shape) do
-    map =
-      shape.points
-      |> Enum.map(fn point -> {{point.x, point.y}, "■"} end)
-      |> Map.new()
+  defimpl String.Chars do
+    def to_string(%Shape{} = shape) do
+      map =
+        shape.points
+        |> Enum.map(fn point -> {{point.x, point.y}, "■"} end)
+        |> Map.new()
 
-    for y <- 4..-4, x <- -4..4 do
-      Map.get(map, {x, y}, "□")
+      for y <- 4..-4, x <- -4..4 do
+        Map.get(map, {x, y}, "□")
+      end
+      |> Enum.chunk_every(9)
+      |> Enum.map(&Enum.join/1)
+      |> Enum.join("\n")
     end
-    |> Enum.chunk_every(9)
-    |> Enum.map(&Enum.join/1)
-    |> Enum.join("\n")
   end
 
   def print(%Shape{} = shape) do
     shape
-    |> to_string_s()
+    |> to_string()
     |> IO.puts()
   end
 end
