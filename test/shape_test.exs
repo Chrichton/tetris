@@ -3,4 +3,16 @@ defmodule ShapeTest do
 
   test "rotate_right" do
   end
+
+  test "to_string" do
+    expected = """
+    □□□□□
+    □□□□□
+    □■■■□
+    □□□■□
+    □□□□□\
+    """
+
+    assert to_string(Shape.shape_l()) == expected
+  end
 end
